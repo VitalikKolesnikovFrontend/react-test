@@ -1,0 +1,69 @@
+.modal {
+    display: flex;
+    width: 640px;
+    height: 100%;
+    padding-bottom: 40px;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    background-color: #fff;
+    display: none;
+}
+.buttons__modal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.button__modal {
+    width: 272px;
+    height: 50px;
+    display: flex;
+    padding: 8px 20px;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    flex: 1 0 0;
+    align-self: stretch;
+    margin-left: 16px;
+    margin-top: 20px;
+    border-radius: 4px;
+    border: 1px solid var(--grayspace-layout-gray-30, #D0D3DA);
+    background: var(--grayspace-layout-white, #FFF);
+}
+.button__modal_sec{
+    border-radius: 4px;
+    border: 1px solid var(--cskc-06-ecc-400, #BD68CA);
+    background: var(--cskc-06-ecc-500, #C06ECC);
+    color: #fff;
+}
+.select__modal {
+    display: flex;
+    height: 40px;
+    width: 560px;
+    padding: 10px 12px;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    align-self: stretch;
+    border-radius: 8px;
+    border: 1px solid var(--grayspace-layout-gray-30, #D0D3DA);
+    background: var(--grayspace-layout-white, #FFF);
+    margin-left: 25px;
+    select {
+        width: 100%;
+        border: none;
+        
+    }
+
+}
+.input__modal {
+    height: 40px;
+    width: 560px;
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid var(--grayspace-layout-gray-30, #D0D3DA);
+    background: var(--grayspace-layout-white, #FFF);
+}
