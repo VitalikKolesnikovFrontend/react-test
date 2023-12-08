@@ -7,51 +7,37 @@ import ModalDelete from '../ModalDelete/ModalDelete';
 import productsList from '../Products/ProductsList';
 import './Products.scss';
 import { useState } from 'react';
+import Modal from '../Modal/Modal';
+import PostForm from '../PostForm/PostForm';
 
 const Products = () => {
-  const [posts, setPosts] = useState([]);
+  const [posts, setPosts] = useState([...productsList]);
+  const [modalOpen, setOpenModal] = useState(false);
 
-  const [post, setPost] = useState({
-    // categories: '',
-    // subcategory: '',
-    // brand: '',
-    // items: '',
-    cashback: '',
-  });
-
-  const addPost = () => {
-    const newPost = { ...post };
-    setPosts(...posts, newPost);
-    console.log(newPost);
-    console.log(posts);
+  const createPost = (newPost) => {
+    setPosts([...posts, newPost]);
   };
 
   return (
     <>
-      <input
+      {/* <input
         value={post.cashback}
         onChange={(e) => {
           setPost({ ...post, cashback: e.target.value });
           console.log(post);
         }}
         className="input__modal"
-        placeholder="20%"></input>
+        placeholder="20%"></input> */}
+      <Modal visible={modalOpen}>
+        <PostForm create={createPost} />
+      </Modal>
       <Search />
-      <Button onClick={addPost}>Добавить акцию</Button>
+      <Button onClick={() => setOpenModal(true)}>Добавить акцию</Button>
       <MenuItems />
       {posts.length > 0 ? (
         <div className="posts__products">
-          {posts.map((item, index) => (
-            <Post
-              key={index}
-              // index={index}
-              // id={item.id}
-              // categories={item.categories}
-              // subcategory={item.subcategory}
-              // brand={item.brand}
-              // items={item.items}
-              cashback={item.cashback}
-            />
+          {posts.map((item) => (
+            <Post key={item.id} post={item} />
           ))}
         </div>
       ) : (
