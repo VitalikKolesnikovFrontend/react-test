@@ -1,6 +1,11 @@
 // import productsList from "../Products/ProductsList";
 import './ModalDelete.scss';
-const ModalDelete = () => {
+const ModalDelete = ({ checkedPosts, remove }) => {
+  const removeCheckedHandler = () => {
+    remove(checkedPosts);
+    console.log(checkedPosts);
+  };
+
   return (
     <div className="modalDelete">
       <button className="button__modalDelete">
@@ -21,7 +26,7 @@ const ModalDelete = () => {
           </defs>
         </svg>
       </button>
-      <div className="text__modalDelete">Количество выбранных позиций: 3</div>
+      <div className="text__modalDelete">Количество выбранных позиций: {checkedPosts.length}</div>
       <div className="modal__delete">
         <svg
           className="delete__btn"
@@ -35,7 +40,9 @@ const ModalDelete = () => {
             fill="#999999"
           />
         </svg>
-        <span className="delete__btn">Удалить</span>
+        <button onClick={removeCheckedHandler} className="delete__btn">
+          Удалить
+        </button>
       </div>
     </div>
   );

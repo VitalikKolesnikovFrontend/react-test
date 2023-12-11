@@ -1,6 +1,6 @@
 import './PostForm.scss';
 import { useState } from 'react';
-const PostForm = ({ create }) => {
+const PostForm = ({ create, setVisible }) => {
   const [post, setPost] = useState({
     categories: '',
     subcategory: '',
@@ -14,12 +14,27 @@ const PostForm = ({ create }) => {
     e.preventDefault();
     const newPost = { ...post, id: Date.now() };
     create(newPost);
+    setPost({
+      categories: '',
+      subcategory: '',
+      brand: '',
+      items: '',
+      cashback: '',
+      id: Date.now(),
+    });
+  };
+
+  const closeModal = (e) => {
+    e.preventDefault();
+    setVisible(false);
   };
 
   return (
     <form action="submit">
       <div className="buttons__modal">
-        <button className="button__modal">Удалить</button>
+        <button onClick={closeModal} className="button__modal">
+          Удалить
+        </button>
         <button onClick={addPost} className="button__modal button__modal_sec">
           Сохранить
         </button>
@@ -35,10 +50,14 @@ const PostForm = ({ create }) => {
         <select
           value={post.categories}
           onChange={(e) => setPost({ ...post, categories: e.target.value })}>
-          <option value="1">Название категории</option>
-          <option value="2">Эстетический уход</option>
-          <option value="3">Пилинги</option>
-          <option value="4">Средства для коррекции фигуры и массажа </option>
+          <option disabled value="">
+            Название категории
+          </option>
+          <option value="Эстетический уход">Эстетический уход</option>
+          <option value="Пилинги">Пилинги</option>
+          <option value="Средства для коррекции фигуры и массажа ">
+            Средства для коррекции фигуры и массажа{' '}
+          </option>
         </select>
       </div>
       <p>Подкатегория</p>
@@ -46,21 +65,25 @@ const PostForm = ({ create }) => {
         <select
           value={post.subcategory}
           onChange={(e) => setPost({ ...post, subcategory: e.target.value })}>
-          <option value="1">Название подкатегории</option>
-          <option value="2">Очищение</option>
-          <option value="3">Скрабы</option>
-          <option value="4">Тонизация</option>
-          <option value="5">Кремы и гели</option>
-          <option value="6">Кислотные пилинги</option>
+          <option disabled value="">
+            Название подкатегории
+          </option>
+          <option value="Очищение">Очищение</option>
+          <option value="Скрабы">Скрабы</option>
+          <option value="Тонизация">Тонизация</option>
+          <option value="Кремы и гели">Кремы и гели</option>
+          <option value="Кислотные пилинги">Кислотные пилинги</option>
         </select>
       </div>
       <p>Бренд</p>
       <div className="select__modal">
         <select value={post.brand} onChange={(e) => setPost({ ...post, brand: e.target.value })}>
-          <option value="1">Имя бренда</option>
-          <option value="2">Academie</option>
-          <option value="3">Frolyis Pro</option>
-          <option value="4">Kosmoteros Personnel Paris</option>
+          <option disabled value="">
+            Имя бренда
+          </option>
+          <option value="Academie">Academie</option>
+          <option value="Frolyis Pro">Frolyis Pro</option>
+          <option value="Kosmoteros Personnel Paris">Kosmoteros Personnel Paris</option>
         </select>
       </div>
     </form>

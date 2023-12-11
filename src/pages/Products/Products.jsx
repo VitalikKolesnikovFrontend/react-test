@@ -13,9 +13,23 @@ import PostForm from '../PostForm/PostForm';
 const Products = () => {
   const [posts, setPosts] = useState([...productsList]);
   const [modalOpen, setOpenModal] = useState(false);
+  const [checkedPosts, setCheckedPosts] = useState([]);
+
+  const addCheckedPost = (post) => {
+    setCheckedPosts([...checkedPosts, post]);
+  };
+  const removeCheckedPost = (post) => {
+    setCheckedPosts(checkedPosts.filter((i) => i.id !== post.id));
+  };
 
   const createPost = (newPost) => {
     setPosts([...posts, newPost]);
+    setOpenModal(false);
+  };
+
+  const removeCheckedPosts = (postsRemove) => {
+    setPosts(posts.filter((i) => !postsRemove.includes(i)));
+    setCheckedPosts([]);
   };
 
   return (
@@ -29,7 +43,7 @@ const Products = () => {
         className="input__modal"
         placeholder="20%"></input> */}
       <Modal visible={modalOpen}>
-        <PostForm create={createPost} />
+        <PostForm create={createPost} setVisible={setOpenModal} />
       </Modal>
       <Search />
       <Button onClick={() => setOpenModal(true)}>Добавить акцию</Button>
@@ -37,13 +51,20 @@ const Products = () => {
       {posts.length > 0 ? (
         <div className="posts__products">
           {posts.map((item) => (
-            <Post key={item.id} post={item} />
+            <Post
+              addCheckedPost={addCheckedPost}
+              removeCheckedPost={removeCheckedPost}
+              key={item.id}
+              post={item}
+            />
           ))}
         </div>
       ) : (
         <h1>Товары не найдены</h1>
       )}
-      <ModalDelete />
+      {checkedPosts.length > 0 && (
+        <ModalDelete remove={removeCheckedPosts} checkedPosts={checkedPosts} />
+      )}
     </>
   );
 };
