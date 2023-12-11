@@ -9,11 +9,19 @@ import './Products.scss';
 import { useState } from 'react';
 import Modal from '../Modal/Modal';
 import PostForm from '../PostForm/PostForm';
+import { useEffect } from 'react';
 
 const Products = () => {
   const [posts, setPosts] = useState([...productsList]);
   const [modalOpen, setOpenModal] = useState(false);
   const [checkedPosts, setCheckedPosts] = useState([]);
+  const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState(10);
+  const [totalPages, setTotalPages] = useState(10);
+
+  const changePage = (page) => {
+    setPage(page);
+  };
 
   const addCheckedPost = (post) => {
     setCheckedPosts([...checkedPosts, post]);
@@ -32,6 +40,20 @@ const Products = () => {
     setCheckedPosts([]);
   };
 
+  const closeModal = (e) => {
+    console.log(e);
+    if (e.keyCode === 27) {
+      setOpenModal(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('keydown', closeModal);
+    return () => {
+      document.addEventListener('keydown', closeModal);
+    };
+  }, []);
+
   return (
     <>
       {/* <input
@@ -42,10 +64,17 @@ const Products = () => {
         }}
         className="input__modal"
         placeholder="20%"></input> */}
-      <Modal visible={modalOpen}>
+      <Modal setVisible={setOpenModal} visible={modalOpen}>
         <PostForm create={createPost} setVisible={setOpenModal} />
       </Modal>
-      <Search />
+      <Search
+        page={page}
+        limit={limit}
+        setLimit={setLimit}
+        setPage={setPage}
+        changePage={changePage}
+        totalPages={totalPages}
+      />
       <Button onClick={() => setOpenModal(true)}>Добавить акцию</Button>
       <MenuItems />
       {posts.length > 0 ? (

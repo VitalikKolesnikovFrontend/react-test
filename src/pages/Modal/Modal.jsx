@@ -1,10 +1,14 @@
 import './Modal.scss';
-const Modal = ({ children, visible }) => {
+const Modal = ({ children, visible, setVisible }) => {
   const rootClasses = ['modal'];
   if (visible) {
     rootClasses.push('active');
   }
-  return <div className={rootClasses.join(' ')}>{children}</div>;
+  return (
+    <div onClick={() => setVisible(false)} className={rootClasses.join(' ')}>
+      {children}
+    </div>
+  );
 };
 
 export default Modal;

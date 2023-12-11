@@ -5,7 +5,7 @@ const PostForm = ({ create, setVisible }) => {
     categories: '',
     subcategory: '',
     brand: '',
-    items: '',
+    items: '-',
     cashback: '',
     id: Date.now(),
   });
@@ -18,7 +18,7 @@ const PostForm = ({ create, setVisible }) => {
       categories: '',
       subcategory: '',
       brand: '',
-      items: '',
+      items: '-',
       cashback: '',
       id: Date.now(),
     });
@@ -30,7 +30,7 @@ const PostForm = ({ create, setVisible }) => {
   };
 
   return (
-    <form action="submit">
+    <form onClick={(e) => e.stopPropagation()} className="form" action="submit">
       <div className="buttons__modal">
         <button onClick={closeModal} className="button__modal">
           Удалить
@@ -43,8 +43,7 @@ const PostForm = ({ create, setVisible }) => {
       <input
         value={post.cashback}
         onChange={(e) => setPost({ ...post, cashback: e.target.value })}
-        className="input__modal"
-        placeholder="20%"></input>
+        className="input__modal"></input>
       <p>Категория</p>
       <div className="select__modal">
         <select

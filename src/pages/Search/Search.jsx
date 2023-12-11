@@ -1,17 +1,41 @@
 import './Search.scss';
-const Search = () => {
+const Search = ({ page, limit, setPage, setLimit, changePage, totalPages }) => {
+  const nextPage = (e) => {
+    e.preventDefault();
+    if (page < 10) {
+      changePage(+page + 1);
+    }
+  };
+  const prevPage = (e) => {
+    e.preventDefault();
+    if (page > 1) {
+      changePage(+page - 1);
+    }
+  };
   return (
     <form className="search">
       <label className="label">Показывать</label>
-      <select className="select" id="items" name="items">
+      <select
+        onChange={(e) => setLimit(e.target.value)}
+        value={limit}
+        className="select"
+        id="items"
+        name="items">
         <option value="10">10</option>
         <option value="20">20</option>
         <option value="30">30</option>
       </select>
       <label className="label">Страница</label>
-      <input className="input__search" type="number" name="page" min="1" />
-      <span className="text__search">из 1</span>
-      <button className="button__search">
+      <input
+        value={page}
+        onChange={(e) => setPage(e.target.value)}
+        className="input__search"
+        type="number"
+        name="page"
+        min="1"
+      />
+      <span className="text__search">из {totalPages}</span>
+      <button onClick={prevPage} className="button__search">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="16"
@@ -25,7 +49,7 @@ const Search = () => {
           />
         </svg>
       </button>
-      <button className="button__search">
+      <button onClick={nextPage} className="button__search">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="16"

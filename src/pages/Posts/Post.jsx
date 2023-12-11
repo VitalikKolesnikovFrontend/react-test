@@ -25,7 +25,7 @@ const Post = ({ post, addCheckedPost, removeCheckedPost }) => {
       <span>{post.subcategory}</span>
       <span>{post.brand !== null ? post.brand : '-'}</span>
       <span>{post.items !== null ? post.items : '-'}</span>
-      <span>{post.cashback}</span>
+      <span>{post.cashback}%</span>
     </div>
   );
 };
